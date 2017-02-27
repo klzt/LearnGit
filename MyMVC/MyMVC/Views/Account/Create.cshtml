@@ -1,0 +1,30 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <link href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container"> 
+        <h1>Create</h1>
+        @using (Html.BeginForm())
+        {
+        <div class="form-group">
+           Name:<input type="text" name="username" class="form-control" /><br />
+           PassWord:<input type="password" name="password" class="form-control" /><br />
+           Email:<input type="text" name="email" class="form-control" />
+            <br />
+            <button type="submit" class="btn btn-default">Save</button>
+            @Html.ActionLink("Back", "Index")
+        </div>
+        }
+    </div>
+</body>
+</html>
