@@ -1,10 +1,13 @@
-﻿using MyMVC.DAL;
-using MyMVC.Models;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
+using MyMVC.DAL;
+using MyMVC.Models;
+using PagedList;
 
 namespace MyMVC.Controllers
 {
@@ -13,10 +16,35 @@ namespace MyMVC.Controllers
         AccountContext db = new AccountContext();
 
         // GET: Account
-        public ActionResult Index()
+        public ActionResult Index(string searchKey, string sortKey, string currFilter, int pager = 1)
         {
-            ViewBag.DateTime = DateTime.Now;
-            return View(db.SysUsers);
+            if (searchKey == null)
+            {
+                searchKey = currFilter;
+            }
+
+            var user = db.SysUsers.Select(t => t);
+
+            if (!string.IsNullOrEmpty(searchKey))
+            {
+                user = user.Where(t => t.UserName.Contains(searchKey));
+            }
+
+            if (!string.IsNullOrEmpty(sortKey))
+            {
+                user = user.OrderBy(t => t.UserName);
+            }
+            else
+            {
+                user = user.OrderByDescending(t => t.UserName);
+            }
+
+            ViewBag.currFilter = searchKey;
+            ViewBag.OldSortKey = sortKey;
+            ViewBag.sortKey = string.IsNullOrEmpty(sortKey) ? "1" : string.Empty;
+            //ViewBag.DateTime = DateTime.Now;
+
+            return View(user.ToPagedList(pager, 3));
         }
 
         public ActionResult Details(int id)

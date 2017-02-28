@@ -3,7 +3,12 @@
     Layout = null;
 }
 
-@model IEnumerable<MyMVC.Models.SysUser>
+@using MyMVC.Models;
+@using PagedList.Mvc;
+
+@*@model IEnumerable<SysUser>*@
+@model PagedList.IPagedList<SysUser>
+
 
 <!DOCTYPE html>
 
@@ -12,15 +17,17 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <link href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+
     @*<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">*@
 </head>
 <body>
     <div class="container">
-        <div class="row">
+        @*<div class="row">
             <div class="col-md-3">
                 <h6>Partial：</h6>test
                 @Html.Partial("_PartialDateDemo")
-                @Html.Partial("_PartialDateDemo") @*//("~/Views/Shared/_PartialDemo.cshtml")*@
+                @Html.Partial("/Views/Shared/_PartialDemo.cshtml")
                 Action=>Partial:@Html.Action("ShowPartial")
             </div>
             <div class="col-md-3">
@@ -39,18 +46,23 @@
                     Html.RenderAction("ShowPartial");
                 }
             </div>
-        </div>
-        <div>
-            @Html.ActionLink("Create", "Create")
+        </div>*@
+        <div class="row">
+            @using (Html.BeginForm("Index", "Account"))
+            { 
+            @Html.ActionLink("Create", "Create", "", new { @class = "btn btn-primary" })
+            @Html.TextBox("searchKey", (string)ViewBag.currFilter, new { @placeholder = "请输入查询条件", @class = "text-danger" })
+            <input type="submit" value="查询" class="btn btn-default"/>
+            }
         </div>
         <div class="row">
             <table class="table table-bordered table-hover table-striped table-responsive">
                 <tr>
-                    <th>@Html.DisplayNameFor(m => m.UserName)</th>
-                    <th colspan="2">@Html.DisplayNameFor(m => m.Email)</th>
+                    <th>@Html.ActionLink("UserName", "Index",new { sortKey =ViewBag.sortKey, currFilter=ViewBag.currFilter })</th>
+                    <th colspan="2">Email</th>
                 </tr>
                 @foreach (var item in Model)
-            {
+                {
                     <tr>
                         <td>
                             @Html.DisplayFor(m => item.UserName)
@@ -67,6 +79,8 @@
                     </tr>
                 }
             </table>
+            Page @(Model.PageCount>Model.PageNumber?Model.PageNumber:Model.PageCount) of @Model.PageCount
+            @Html.PagedListPager(Model,p=>Url.Action("index",new { pager=p,sortKey=ViewBag.OldSortKey, currFilter =ViewBag.currFilter }))
         </div>
     </div>
 </body>
