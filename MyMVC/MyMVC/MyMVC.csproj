@@ -145,9 +145,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703010236008_initialcreate.cs" />
+    <Compile Include="Migrations\201703010236008_initialcreate.Designer.cs">
+      <DependentUpon>201703010236008_initialcreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703010829580_test.cs" />
+    <Compile Include="Migrations\201703010829580_test.Designer.cs">
+      <DependentUpon>201703010829580_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703010849224_AddCreateDateToUser.cs" />
+    <Compile Include="Migrations\201703010849224_AddCreateDateToUser.Designer.cs">
+      <DependentUpon>201703010849224_AddCreateDateToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\SysRole.cs" />
     <Compile Include="Models\SysUser.cs" />
     <Compile Include="Models\SysUserRole.cs" />
+    <Compile Include="Models\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +186,17 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201703010236008_initialcreate.resx">
+      <DependentUpon>201703010236008_initialcreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703010829580_test.resx">
+      <DependentUpon>201703010829580_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703010849224_AddCreateDateToUser.resx">
+      <DependentUpon>201703010849224_AddCreateDateToUser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

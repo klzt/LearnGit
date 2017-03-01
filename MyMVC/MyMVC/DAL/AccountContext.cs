@@ -18,6 +18,8 @@ namespace MyMVC.DAL
 
         public DbSet<SysUserRole> SysUserRoles { get; set; }
 
+        public DbSet<Test> Tests { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //base.OnModelCreating(modelBuilder);
