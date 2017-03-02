@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using MyMVC.DAL;
 using MyMVC.Models;
 using PagedList;
+using System.Data.Entity;
 
 namespace MyMVC.Controllers
 {
@@ -38,12 +39,12 @@ namespace MyMVC.Controllers
             {
                 user = user.OrderByDescending(t => t.UserName);
             }
-
+            //user.Include("SysDepartment");
             ViewBag.currFilter = searchKey;
             ViewBag.OldSortKey = sortKey;
             ViewBag.sortKey = string.IsNullOrEmpty(sortKey) ? "1" : string.Empty;
             //ViewBag.DateTime = DateTime.Now;
-
+            
             return View(user.ToPagedList(pager, 3));
         }
 
@@ -87,7 +88,22 @@ namespace MyMVC.Controllers
         {
             return View();
         }
+
         [HttpPost]
+        public ActionResult Create(SysUser user)
+        {
+            if (ModelState.IsValid)
+            {
+                db.SysUsers.Add(user);
+                db.SaveChanges();
+
+                return View("Index", db.SysUsers);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("OldCreate")]
         public ActionResult Create(FormCollection fc)
         {
             var user = new SysUser()
@@ -98,6 +114,7 @@ namespace MyMVC.Controllers
             };
             db.SysUsers.Add(user);
             db.SaveChanges();
+
             return View("Index", db.SysUsers);
         }
 

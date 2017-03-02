@@ -1,7 +1,9 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
+
+
+@model MyMVC.Models.SysUser
 
 <!DOCTYPE html>
 
@@ -13,17 +15,22 @@
 </head>
 <body>
     <div class="container"> 
-        <h1>Create</h1>
+        <h6>Create</h6>
         @using (Html.BeginForm())
         {
-        <div class="form-group">
-           Name:<input type="text" name="username" class="form-control" /><br />
-           PassWord:<input type="password" name="password" class="form-control" /><br />
-           Email:<input type="text" name="email" class="form-control" />
-            <br />
-            <button type="submit" class="btn btn-default">Save</button>
-            @Html.ActionLink("Back", "Index")
-        </div>
+            <div class="form-group">
+                @Html.DisplayNameFor(t=>t.UserName)<input type="text" name="username" class="form-control" />
+                @Html.ValidationMessageFor(t => t.UserName)
+                <br />
+                @Html.LabelFor(t=>t.PassWord):<input type="password" name="password" class="form-control" />
+                @Html.ValidationMessage("password")
+                <br />
+                Email:<input type="text" name="email" class="form-control" />
+                <br />
+                @*<button type="submit" class="btn btn-default">Save</button>*@
+                <input type="submit" class="btn btn-default" value="Save" />
+                @Html.ActionLink("Back", "Index")
+            </div>
         }
     </div>
 </body>
