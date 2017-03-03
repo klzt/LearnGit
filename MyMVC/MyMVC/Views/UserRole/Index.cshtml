@@ -1,4 +1,4 @@
-﻿
+﻿@model MyMVC.ViewModels.UserRolesModel
 @{
     Layout = null;
 }
@@ -14,8 +14,77 @@
 <body>
     <div class="container">
         <table class="table table-striped">
-
+            <tr>
+                <th>用户名</th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    CreateDate
+                </th>
+                <th>
+                    Department
+                </th>
+                <th>
+                    Roles
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model.SysUsers)
+            {
+                var v_class = string.Empty;
+                if (item.ID==ViewBag.currid)
+                {
+                    v_class = "table-success";
+                }
+                <tr class="@v_class">
+                    <td>
+                        @Html.DisplayFor(t => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(t => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(t => item.CreateDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(t => item.SysDepartment.DepartName)
+                    </td>
+                    <td>
+                        @foreach (var userRole in item.SysUserRoles)
+                        {
+                                @userRole.SysRoles.RoleName @:,
+                       }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Select", "Index", new { id = item.ID })
+                    </td>
+                </tr>
+                            }
         </table>
+
+        @if (Model.SysRoles != null)
+        {
+            <h6>roles show</h6>
+            <table class="table table-striped">
+                <tr>
+                    <th>roleName</th>
+                    <th>roleDesc</th>
+                </tr>
+                @foreach (var item in Model.SysRoles)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(t => item.RoleName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(t => item.RoleDesc)
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+
     </div>
 </body>
 </html>

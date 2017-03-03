@@ -20,7 +20,7 @@
         {
             <div class="form-group">
                 @Html.DisplayNameFor(t=>t.UserName)<input type="text" name="username" class="form-control" />
-                @Html.ValidationMessageFor(t => t.UserName)
+                @Html.ValidationMessageFor(t => t.UserName,"",new { @class="alert-danger"})
                 <br />
                 @Html.LabelFor(t=>t.PassWord):<input type="password" name="password" class="form-control" />
                 @Html.ValidationMessage("password")

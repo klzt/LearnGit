@@ -13,6 +13,7 @@ namespace MyMVC.DAL
         public AccountContext() : base("MyMVCSql")
         {
         }
+        
         public DbSet<SysRole> SysRoles { get; set; }
         public DbSet<SysUser> SysUsers { get; set; }
 
